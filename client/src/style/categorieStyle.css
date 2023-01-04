@@ -1,0 +1,16 @@
+.categorie {
+    background-color: #EB455F;
+    color: white;
+    border-radius: 1rem;
+    padding: 5px 15px;
+}
+.categorie:hover{
+    background-color: brown;
+    color: white;
+}
+hr {
+    margin-bottom: 21px;
+}
+.HeightProduct {
+    min-height: 41vh;
+}
