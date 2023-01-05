@@ -5,7 +5,7 @@ const { getAllPayement,createPayement,deletePayement} = require("../Controller/P
 
 router.get("/getAllPayement",getAllPayement);
 router.post("/createPayement",createPayement);
-router.delete("/deletePayement/:id_Payement", deletePayement);
+router.delete("/deletePayement/:id", deletePayement);
 
 
 

@@ -26,12 +26,6 @@ catch (error)
 }
 };
 
-exports.getAllAppartementToRender = async (req, res) => {
-  const data = await Appartement.findAll({});
-  res.render("", {
-    Appartements: data,
-  });
-};
 
 // functioncreat Appartement Appartement : 
 /**

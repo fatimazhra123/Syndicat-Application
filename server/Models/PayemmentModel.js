@@ -3,17 +3,17 @@ const mongoose = require('mongoose')
 const PaymentShema = mongoose.Schema({
 
     date: {
-      type:Date
+      type: Date,
+      require:true
     },
     amount: {
-      type:Number
+      type: String
     },
- 
     namberDappartement : {
     type: String,
        ref: 'Appartement'
      },
-      cin: {
+     cin: {
       type: String,
        ref: 'client'
        }

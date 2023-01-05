@@ -39,17 +39,17 @@ exports.createClient = async (req, res) => {
         
         throw new Error('please add all files ')  
     }
-     // check for number client if already exist 
-    // const clientExist = await client.findOne({ where: { cin } })
-    // if (clientExist) {
-    //     return res.status(400).send('i m sorry client has been already exist')
-    // }
+    // check for number client if already exist 
+    const clientExist = await client.findOne({ cin })
+    if (clientExist) {
+        return res.status(400).send('i m sorry client has been already exist')
+    }
   try {
 
    // create the apparetement
    
     const clt = await client.create
-    console.log(clt);
+    
     ({
         NumberPhone:NumberPhone,
          name:name,

@@ -40,7 +40,7 @@ app.use(express.static('public'))
 
 app.use('/api/auth', authRouter)
 app.use('/api/Appartement/',AppartementRoutes)
-app.use('api/payement/',PayementRoutes)
+app.use('/api/payement/',PayementRoutes)
 app.use('/api/client/',ClientRoutes)
 
 
@@ -48,7 +48,7 @@ app.use('/api/client/',ClientRoutes)
 
     
 
-const port = process.env.PORT || 8080
+const port = process.env.PORT|| 8080
 
 app.listen(port, (err) => {
     if (!err) {
