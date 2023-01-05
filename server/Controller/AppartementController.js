@@ -16,9 +16,10 @@ exports.getAllAppartement = async (req, res) => {
 } 
 catch (error) 
 {
-    console.log(error);
-    res.json({message: "Appartement is not founded"})
-    .status(400)
+  console.log(error);
+  res.status(400).send({message: "Appartement is not founded"})
+  
+
 }
 };
 
@@ -36,42 +37,31 @@ exports.getAllAppartementToRender = async (req, res) => {
  * access => private
  * 
  */
+
+
 exports.createAppartement = async (req, res) => {
-    const {residence, namberDappartement} = req.body
-
-    if(!residence || !namberDappartement){
-        throw new Error('please add all files ')
-        
-    }
-
-     // check for number appartement if already exist 
-    const appartemenExist = await Appartement.findOne({ where: { namberDappartement } })
-    if (appartemenExist) {
-        return res.status(400).send('Opps!! Appartement has been already exist')
-    }
-  try {
-
-   // create the apparetement
-   
-    const appart = await Appartement.create
-    ({
-        residence: residence,
-        namberDappartement:namberDappartement,
-       
-    });
-    console.log(appart);
-  
-    res.status(200).json({
-      success: true,
-      message: "Appartement created successfully",
-      appart,
-    });
-  } catch (err) {
-    throw new Error(err)
-  
+  const { residence, namberDappartement } = req.body;
+  if (!residence || !namberDappartement) {
+      res.status(400)
+          .json({ message: "please fill all fields !" })
   }
 
-};
+  const checkAppartementNumber = await Appartement.findOne({namberDappartement: req.body.namberDappartement})
+  if(checkAppartementNumber){
+      res.json({message: " i m sorry Appartement has been already exist "})
+  }
+
+  // Create Appartement :
+  const appartement = await Appartement.create({
+      residence,
+      namberDappartement
+  })
+  if (appartement) {
+      res.status(200)
+          .json({ message: "Appartement Created Successfully !" })
+  }
+}
+ 
 
 // function Delete Appartement : 
 /**

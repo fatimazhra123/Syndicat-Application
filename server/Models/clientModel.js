@@ -11,10 +11,12 @@ const ClienteShema = mongoose.Schema({
          cin: {
           type: String,
           unique:true
-          },     
-        NumberPhone: {
-        type: String,
-        unique: true
+          }, 
+
+          NumberPhone: {
+           type: String,
+          //  unique:true
+         
       },
 
       });

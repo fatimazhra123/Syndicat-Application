@@ -8,11 +8,15 @@ const PaymentShema = mongoose.Schema({
     amount: {
       type:Number
     },
-  //   apartment: {
-  //     type: mongoose.Types.ObjectId,
-  //     ref: 'Apartment',
-  // }
-  
+ 
+    namberDappartement : {
+    type: String,
+       ref: 'Appartement'
+     },
+      cin: {
+      type: String,
+       ref: 'client'
+       }
 
 });
   

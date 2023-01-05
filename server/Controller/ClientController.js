@@ -1,122 +1,124 @@
-// const Client=require('../Models/clientModel')
-// // function getAllClient Client : 
-// /**
-//  * methode => get 
-//  * @Route => /Client/getAllClient
-//  * access => private
-//  */
+const client=require('../Models/clientModel')
+// function getAllclient client : 
+/**
+ * methode => get 
+ * @Route => /client/getAllclient
+ * access => private
+ */
 
-// exports.GetAllClient = async (req, res) => {
-//   try {
-//   const data = await Client.findAll({});
+exports.getAllclient = async (req, res) => {
+  try {
+  const data = await client.findAll({});
 
-//   console.log(data);
+  console.log(data);
 
-//   res.send(data).status(200)
-// } 
-// catch (error) 
-// {
-//     console.log(error);
-//     res.json({message: "Client is not founded"})
-//     .status(400)
-// }
-// };
+  res.send(data).status(200)
+} 
+catch (error) 
+{
+  console.log(error);
+  res.status(400).send({message: "client is not founded"})
+  
+  
+}
+};
 
-// exports.getAllClientToRender = async (req, res) => {
-//   const data = await Client.findAll({});
-//   res.render("", {
-//     Clients: data,
-//   });
-// };
 
-// // functioncreat Client Client : 
-// /**
-//  * methode => post 
-//  * @Route => api/Client/createClient/
-//  * access => private
-//  * 
-//  */
-// exports.CreateClient = async (req, res) => {
-//     const {name,cin,NumberPhone} = req.body
 
-//     if(!name || !cin || !NumberPhone){
-//         throw new Error('please add all files ')
-//     }
-//      // check for   cin Client if already exist 
-//     const ClientExist = await Client.findOne({ where: {cin} })
-//     if (ClientExist) {
-//         return res.status(400).json('noooo!! Client has been already exist')
-//     }
-//   try {
+// function creat client : 
+/**
+ * methode => post 
+ * @Route => api/client/createclient/
+ * access => private
+ * 
+ */
+exports.createClient = async (req, res) => {
+    const {NumberPhone,name,cin} = req.body
 
-//    // create the Client
+    if(!NumberPhone || !name || !cin){
+        
+        throw new Error('please add all files ')  
+    }
+     // check for number client if already exist 
+    // const clientExist = await client.findOne({ where: { cin } })
+    // if (clientExist) {
+    //     return res.status(400).send('i m sorry client has been already exist')
+    // }
+  try {
+
+   // create the apparetement
    
-//     const clt = await Client.create
-//     ({ name, cin,NumberPhone});
-//     console.log(clt);
+    const clt = await client.create
+    console.log(clt);
+    ({
+        NumberPhone:NumberPhone,
+         name:name,
+         cin:cin,
+    });
+    console.log(clt);
   
-//     res.status(200).json({
-//       success: true,
-//       message: "Client created successfully",
-//       clt,
-//     });
-//   } catch (err) {
-//     throw new Error(err)
+    res.status(200).json({
+      success: true,
+      message: "client created successfully",
+      clt,
+    });
+  } catch (err) {
+    throw new Error(err)
   
-//   }
+  }
 
-// };
+};
 
-// // function Delete Client : 
-// /**
-//  * methode => delete 
-//  * @Route => /api/Client/deleteClient/:id_Apartment
-//  * access => private
-//  */
+// function Delete client : 
+/**
+ * methode => delete 
+ * @Route => /api/client/deleteclient/:id_Apartment
+ * access => private
+ */
 
-// // try {
-// //   exports.DeleteClient = async (req, res) => {
-// //     const id_Apartment = req.params.id_Apartment;
-// //     const data = await Client.remove({
-// //       where: {
-// //         id_Apartment: id_Apartment,
-// //       },
-// //     });
-// //     res.status(200).json({
-// //       success: true,
-// //       message: "Client deleted successfully",
-// //       data: data,
-// //     });
-// //   };
-
-
-// // } catch (error) {
-// //   console.log(err);
-// // }
+try {
+  exports.deleteClient = async (req, res) => {
+    const id_Client = req.params.id;
+    const data = await client.remove({
+      where: {
+        id_Client: id_Client,
+      },
+    });
+    res.status(200).json({
+      success: true,
+      message: "client deleted successfully",
+      data: data,
+    });
+  };
 
 
+} catch (error) {
+  console.log(err);
+}
 
-// // function getupdate Client : 
-// /**
-//  * methode => put 
-//  * @Route => /api/Client/updateClient:id_Apartment
-//  * access => private
-//  */
-// //update Client:
 
-// // exports. UpdateClient= async (req, res) => {
-// //   const {residence,namberDClient} = req.body;
-// //   const _id = req.params.id;
-// //   if (!residence || !namberDClient) {
-// //      res.status(400).json({ message: "please fill all fields !" });
-// //   }
-// //   // check for number if already exist
-// //   const CheckClientUpdate = await Client
-// //       .findOneAndUpdate({ _id,residence,namberDClient});
-// //   if (CheckClientUpdate) {
-// //      res.status(200).json({ message: "Client Updated Successfully !" });
-// //   } else {
-// //       res.status(400).json({ message: "Error  try again" });
-// //   }
-// // };
+
+// function getupdate client : 
+/**
+ * methode => put 
+ * @Route => /api/client/updateclient:id_Apartment
+ * access => private
+ */
+//update client:
+
+exports. updateClient= async (req, res) => {
+  const {NumberPhone,name,cin}= req.body;
+  const _id = req.params.id;
+  if (!NumberPhone || !name || !cin) {
+     res.status(400).json({ message: "please fill all fields !" });
+  }
+  // check for number if already exist
+  const CheckclientUpdate = await client
+      .findOneAndUpdate({ _id,NumberPhone,name,cin});
+  if (CheckclientUpdate) {
+     res.status(200).json({ message: "client Updated Successfully !" });
+  } else {
+      res.status(400).json({ message: "Error  try again" });
+  }
+};
 

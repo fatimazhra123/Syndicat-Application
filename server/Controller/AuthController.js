@@ -62,7 +62,7 @@ const register = asyncHandler(async (req, res) => {
 
     const emailExist = await UserModel.findOne({ where: { email } })
     if (emailExist) {
-        return res.status(400).send('Opps!! Email has been already taken')
+        return res.status(400).send('im sorry Email has been already taken')
     }
 
     const salt = await bcrypt.genSalt(10)
@@ -83,7 +83,7 @@ const register = asyncHandler(async (req, res) => {
     sendEmail(data.email, data.ValidateToken, subject, url)
 
     if (user) {
-        // res.status(201).send('user created successufly')
+        
         res.status(201).json({
             user,
             mess: 'User create successfuly Please check your email for validation'

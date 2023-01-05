@@ -13,7 +13,7 @@ const Header = ({size}) => {
             <header className="py-4 shadow-sm bg-white">
                 <div className="container flex items-center justify-between">
                     <Link to="/">
-                        <img src="../assets/images/logo.svg" alt="Logo" className="w-32"/>
+                        <img src="" alt="Logo" className="w-32"/>
                     </Link>
 
                     <Link to="home" className="text-Dark-100 hover:text-white transition">Home</Link>

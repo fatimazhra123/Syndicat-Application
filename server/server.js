@@ -3,7 +3,7 @@ const express = require('express');
 const user =require('./Models/UserModel')
 const Appartements = require('./Models/AppartementModel')
 const Payemments = require('./Models/PayemmentModel')
-const Syndicate =require('./Models/clientModel')
+const client =require('./Models/clientModel')
 
 
 
@@ -28,7 +28,6 @@ app.use(cors({origin: true, credentials: true}));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 
-const adminRouter = require('./Routes/AdminRoutes')
 const authRouter = require('./Routes/AuthRoutes')
 const AppartementRoutes = require('./Routes/AppartementRoutes')
 const PayementRoutes = require('./Routes/PayementRoutes');
@@ -39,11 +38,10 @@ app.use(express.static('public'))
 
 
 
-app.use('/api/user', adminRouter)
 app.use('/api/auth', authRouter)
 app.use('/api/Appartement/',AppartementRoutes)
  app.use('api/Payement/',PayementRoutes)
- app.use('/api/Client/',ClientRoutes)
+  app.use('/api/client/',ClientRoutes)
 
 
 
