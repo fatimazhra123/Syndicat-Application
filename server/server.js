@@ -4,8 +4,8 @@ const user =require('./Models/UserModel')
 const Appartements = require('./Models/AppartementModel')
 const Payemments = require('./Models/PayemmentModel')
 const client =require('./Models/clientModel')
-
-
+const apiError = require('./Utils/ErrorsApi')
+const globalError = require('./Middelware/ErrorsHandlling')
 
 
 
@@ -45,7 +45,12 @@ app.use('/api/client/',ClientRoutes)
 
 
 
+app.all('*', (req, res, next) => {
+    //create error and send it to error 
+    next(new apiError(`Can't find this route: ${req.originalUrl}`, 400))
+})
 
+app.use(globalError);
     
 
 const port = process.env.PORT|| 8080

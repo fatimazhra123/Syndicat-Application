@@ -4,6 +4,29 @@ const Client = require("../Models/clientModel");
 
 
 
+
+
+//get all paiments:
+
+exports.getAllPayement = async (req, res) => {
+  try {
+  const paiments = await Paiment.find({})
+
+  console.log(paiments);
+
+  res.send(paiments).status(200)
+} 
+catch (error) 
+{
+  console.log(error);
+  res.status(400).send({message: "Appartement is not founded"})
+  
+
+}
+};
+
+
+
 //create paiements:
 
 exports.createPayement = async (req, res) => {
@@ -28,6 +51,7 @@ exports.createPayement = async (req, res) => {
   
     const paiment = await Paiment.create({date,amount,namberDappartement: idAppartement,cin: idClient });
     if(paiment){
+      console.log(paiment);
         res.status(200).json({
           success: true,
           message: "Paiment is Done"});
@@ -61,24 +85,7 @@ try {
   console.log(err);
 }
 
-//get all paiments:
 
-exports.getAllPayement = async (req, res) => {
-  try {
-  const paiments = await Paiment.find({})
-
-  console.log(paiments);
-
-  res.send(paiments).status(200)
-} 
-catch (error) 
-{
-  console.log(error);
-  res.status(400).send({message: "Appartement is not founded"})
-  
-
-}
-};
 
 
 
