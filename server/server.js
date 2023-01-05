@@ -40,8 +40,8 @@ app.use(express.static('public'))
 
 app.use('/api/auth', authRouter)
 app.use('/api/Appartement/',AppartementRoutes)
- app.use('api/Payement/',PayementRoutes)
-  app.use('/api/client/',ClientRoutes)
+app.use('api/payement/',PayementRoutes)
+app.use('/api/client/',ClientRoutes)
 
 
 

@@ -14,8 +14,4 @@ router.delete("/deletePayement/:id_Payement", deletePayement);
 
 
 
-
-
-
-
 module.exports = router;

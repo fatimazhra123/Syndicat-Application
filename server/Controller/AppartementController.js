@@ -1,4 +1,7 @@
 const Appartement=require('../Models/AppartementModel')
+
+
+
 // function getAllAppartement Appartement : 
 /**
  * methode => get 
