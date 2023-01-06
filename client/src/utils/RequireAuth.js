@@ -1,6 +1,6 @@
 import React from 'react'
 import { useLocation, Outlet, Navigate } from 'react-router-dom'
-import Unauthorized from '../components/Unauthorized'
+
 
 const RequireAuth = ({ Roles }) => {
 
@@ -19,9 +19,9 @@ const RequireAuth = ({ Roles }) => {
     }
 
 
-    if (Roles.indexOf(role) < 0) {
-        return <Unauthorized />;
-    }
+    // if (Roles.indexOf(role) < 0) {
+    //     return <Unauthorized />;
+    // }
    
 
     return <Outlet />;

@@ -22,4 +22,36 @@ describe('get /api/Appartement/getAllAppartement', () => {
         expect(res.statusCode).toBe(400)
     });
 
+
+   
+
+
+
 })
+
+
+// fonction to create  Appartement:
+
+describe('post api/Appartement/createAppartement', () => {
+
+
+
+
+    test('Please fill all required fields !', async () => {
+        const res = await request(app).post('api/Appartement/createAppartement').send({
+          
+            namberDappartement:"A367",
+            residence:""
+
+        })
+
+        expect(res.statusCode).toBe(400)
+    });
+
+
+
+
+})
+
+
+

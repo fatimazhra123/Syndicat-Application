@@ -40,7 +40,7 @@ exports.createAppartement = async (req, res) => {
   const { residence, namberDappartement } = req.body;
   if (!residence || !namberDappartement) {
       res.status(400)
-          .json({ message: "please fill all fields !" })
+          .json({ message: "Please fill all required fields!" })
   }
 
   const checkAppartementNumber = await Appartement.findOne({namberDappartement: req.body.namberDappartement})

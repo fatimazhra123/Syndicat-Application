@@ -34,7 +34,7 @@ const Register = () => {
         e.preventDefault();
         // setError(inputValidation(values));
 
-        if (formData.Username.length === 0 || formData.email.length === 0 || formData.password.length === 0 || formData.password2.length === 0 ) {
+        if (formData.Username.length === 0 || formData.email.length == 0 || formData.password.length == 0 || formData.password2.length == 0 ) {
             setError(true)
         }
         else if (formData.password != formData.password2) {
