@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 
 
+
 const loginRequired = asyncHandler( async (req, res, next) => {
     const token = req.cookies['access_token']
     const decodeToken = jwt.decode(token)

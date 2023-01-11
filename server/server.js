@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 require('dotenv').config();
 const user =require('./Models/UserModel')
 const Appartements = require('./Models/AppartementModel')
@@ -11,7 +12,12 @@ const configdb = require('./Config/configdb');
 
 
 
-
+// Enable CORS for all routes
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+  }));
+  
 
 const coockieparser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -25,10 +31,11 @@ const authRouter = require('./Routes/AuthRoutes')
 const AppartementRoutes = require('./Routes/AppartementRoutes')
 const PayementRoutes = require('./Routes/PayementRoutes');
 const ClientRoutes = require('./Routes/ClientRoutes')
+const SyndicatRoutes= require('./Routes/SyndicatRoutes')
 
 
 
-
+app.use('/api/admin',SyndicatRoutes)
 app.use('/api/auth', authRouter)
 app.use('/api/Appartement/',AppartementRoutes)
 app.use('/api/payement/',PayementRoutes)
@@ -36,12 +43,6 @@ app.use('/api/client/',ClientRoutes)
 
 
 
-
-
-app.all('*', (req, res, next) => {
-    //create error and send it to error 
-    next(new apiError(`Can't find this routeeeeee: ${req.originalUrl}`, 400))
-})
 
 app.use(globalError);
     

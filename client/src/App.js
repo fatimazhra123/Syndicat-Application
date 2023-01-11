@@ -1,61 +1,42 @@
+import './styles/App.css';
 import { Routes, Route } from 'react-router-dom';
-import React from 'react';
-import './App.css';
-import Register from './pages/Auth/Register';
-import HomePage from './pages/HomePage'
-import Login from './pages/Auth/Login'
-import ForgetPassword from './pages/Auth/ForgetPassword';
-import ResetPassword from './pages/Auth/ResetPassword';
-import RequireAuth from './utils/RequireAuth';
-import DashAdmin from './pages/Admin/DashAdmin';
-import Settings from './pages/Admin/Settings';
-import Layout from './components/Layout';
-import LayoutAdmin from './components/Admin/LayoutAdmin';
-import NotFound from './pages/NotFound';
-
-
-
-
-
-
-
-
-
+import {
+  LoginPage,
+  RegisterPage,
+  ResetPasswordPage,
+  ForgetPasswordPage,
+} from './pages/auth/indexAuth'
+import {
+  HomePage,
+  AppartementsPage,
+  ClientsPage,
+  ImmeublesPage,
+  MessagesPage,
+  PaiementsPage,
+  ReglagesPage, 
+} from './pages/dashboard/indexDashboard'
+import Layout from './components/dashboard/shared/Layout';
 
 function App() {
   return (
-    <>
+    <div>
       <Routes>
-
-        <Route element={<Layout />} >
-          <Route path='/' element={<HomePage />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/forgetPassword' element={<ForgetPassword />} />
-          <Route path='/resetPassword/:token' element={<ResetPassword />} />
+        <Route path='/' element={<LoginPage />} />
+        <Route path='register' element={<RegisterPage />} />
+        <Route path='resetpassword' element={<ResetPasswordPage />} />
+        <Route path='forgetpassword' element={<ForgetPasswordPage />} />
+        <Route path="dashboard/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="appartement" element={<AppartementsPage />} />
+          <Route path="client" element={<ClientsPage />} />
+          <Route path="immeuble" element={<ImmeublesPage />} />
+          <Route path="message" element={<MessagesPage />} />
+          <Route path="paiement" element={<PaiementsPage />} />
+          <Route path="reglage" element={<ReglagesPage />} />
+        
         </Route>
-
-
-
-      // client url = DashClt Component
-        <Route element={<RequireAuth Roles={["client"]} />}>
-          {/* <Route path='/client' element={<ProfClient />} /> */}
-        </Route>
-
-
-      // admin url = admin Dash Component
-        <Route element={<RequireAuth Roles={["admin"]} />}>
-          <Route element={<LayoutAdmin />}>
-            <Route path='/admin' element={<DashAdmin />} />
-            <Route path='/settings' element={<Settings />} />
-          </Route>
-        </Route>
-
-
-        <Route path='*' element={<NotFound />} />
-
       </Routes>
-    </>
+    </div>
   );
 }
 

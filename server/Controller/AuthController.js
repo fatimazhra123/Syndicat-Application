@@ -18,7 +18,7 @@ const login = async (req, res) => {
 
 
      // check for Email if already ixist 
-    const user = await UserModel.findOne( { email, Role: 'Syndicat ' })
+    const user = await UserModel.findOne( { email })
     if (!user) return res.status(400).send('User dose not exist')
     console.log(user)
 
@@ -31,17 +31,17 @@ const login = async (req, res) => {
         if (user.Status == false) {
            return res.status(400).send("your email is not validated")
         }
-        const cookiesExp = new Date(new Date().getTime() + 15 * 60 * 1000);
-        const token = genToken(user.id_user)
+       
+        const token = genToken(user.id)
         res.cookie('access_token', token, {
-            expires: cookiesExp
+            expiresIn:'1d'
         })
             .status(200).json({
-                id: user.id_user,
+                id: user.id,
                 Username: user.Username,
                 email: user.email,
                 message: 'user is logened',
-            
+                token: token
             })
     } else {
         res.status(400)

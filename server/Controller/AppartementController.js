@@ -5,13 +5,13 @@ const Appartement=require('../Models/AppartementModel')
 // function getAllAppartement Appartement : 
 /**
  * methode => get 
- * @Route => /Appartement/getAllAppartement
+ * @Route => api/Appartement/getAllAppartement
  * access => private
  */
 
 exports.getAllAppartement = async (req, res) => {
   try {
-  const data = await Appartement.findAll({});
+  const data = await Appartement.find({});
 
   console.log(data);
 
@@ -70,7 +70,7 @@ exports.createAppartement = async (req, res) => {
 try {
   exports.deleteAppartement = async (req, res) => {
     const id_Apartment = req.params.id_Apartment;
-    const data = await Appartement.remove({
+    const data = await Appartement.deleteOne({
       where: {
         id_Apartment: id_Apartment,
       },

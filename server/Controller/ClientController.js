@@ -8,7 +8,7 @@ const client=require('../Models/clientModel')
 
 exports.getAllclient = async (req, res) => {
   try {
-  const data = await client.findAll({});
+  const data = await client.find({});
 
   console.log(data);
 
@@ -79,7 +79,7 @@ exports.createClient = async (req, res) => {
 try {
   exports.deleteClient = async (req, res) => {
     const id_Client = req.params.id;
-    const data = await client.remove({
+    const data = await client.deleteOne({
       where: {
         id_Client: id_Client,
       },

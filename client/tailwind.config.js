@@ -1,26 +1,42 @@
 /** @type {import('tailwindcss').Config} */
+
+const colors = require('tailwindcss/colors')
+
 module.exports = {
-  content: ["./src/**/*.{html,js,jsx}"],
+  darkMode: "class",
+  content: [
+    "./src/**/*.{js,jsx,ts,tsx}",
+  ],
   theme: {
-    screen: {
-      sm: "576px",
-      md: "768px",
-      lg: "992px",
-      xl: "1200px",
+    extend: {},
+    colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      emerald: colors.emerald,
+      indigo: colors.indigo,
+      yellow: colors.yellow,
+      red: colors.red,
+      green: colors.green,
+      'color-primary': '#00aeef',
+      'color-secondary': '#36517e',
     },
-    container: {
-      center: true,
-      padding: "1rem",
-    },
-    extend: {
-      fontFamily: {
-        poppins: ["Poppins", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"],
-      },
-      colors: {
-        primary: "#fd3d57",
-      },
-    },
+    fontFamily: {
+      main: ['Roboto', 'sans-serif'],
+      mini: ['Montserrat', 'sans-serif'],
+    }
   },
-  plugins: [require("@tailwindcss/forms")],
-};
+  plugins: [require("daisyui")],
+  daisyui: {
+    styled: true,
+    themes: ["light"],
+    base: false,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+    darkTheme: "dark",
+  },
+}
