@@ -1,122 +1,167 @@
 import React from 'react'
+import{ useState, useEffect } from 'react'
+import axios from 'axios'
 
 function PaiementsPage() {
+  const [showAddModal, setshowAddModal] = useState(false);
+  const [showUpdateModal, setshowUpdateModal] = useState(false);
+  const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: '' ,id_Paiement:''})
+  const { amount, date, namberDappartement ,cin,id_Paiement} = formData
+
+  let [error, setError] = useState(true)
+
+  const [Paiement, SetPaiement] = useState([])
+
+  const URL = "http://localhost:8080/api/payement/getAllPayement"
+  function GetPaiement() {
+    return axios.get(URL)
+    
+  }
+
+  function test_(){
+    GetPaiement().then(response => {
+      SetPaiement(response.data)
+    })
+  }
+
+  useEffect(() => {
+    test_()
+  }, [])
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const AddPaiementClick = () => {
+    setError(false)
+    setFormData({})
+    setshowAddModal(!showAddModal);
+  }
+
+
+  const url = 'http://localhost:8080/api/payement/createPayement'
+  const data = { namberDappartement,amount,date,cin}
+
+  const AddPaiement = async (e) => {
+    e.preventDefault();
+
+    try {
+      const res= await axios.post(url, data, { withCredentials: true });
+      AddPaiementClick();
+      GetPaiement().then(response => {
+        // SetPaiement(response.data)
+        console.log(response.data);
+      })
+    } catch (err) {
+      console.log(err);
+  
+      setError(err)
+    }
+  }
+
+  const SetPaiementData = async (amount, date, namberDappartement,cin,id_Paiement) => {
+    formData.namberDappartement = namberDappartement
+    formData.amount = amount
+    formData.date = date
+    formData.cin=cin
+    formData.id_Paiement = id_Paiement
+  
+  }
+
+ 
+
+  const deletePaiement = async (id) => {
+    const url = 'http://localhost:8080/api/payement/deletePayement/' + id
+    try {
+      const res = await axios.delete(url, data, { withCredentials: true });
+      GetPaiement().then(response => {
+        SetPaiement(response.data)
+      })
+    } catch (err) {
+      console.log(err.response.data);
+    }
+  }
+
   return (
     <>
-      
-      <main class="main">
+           <main class="main">
         <div class="Container p-4 ">
-          
+          <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
+            <p class="">paiements pages</p>
+          </div>
           <div class="d-flex justify-content-between">
-   
+            <div class="d-flex justify-content-between mt-3 fw-bold">
+            </div>
             <div class="d-flex justify-content-end my-2 px-5 fw-bold">
-              <button class="btn bg-danger px-3 text-blod Button_ajoute" data-bs-toggle="modal" data-bs-target="#send_to">Ajouter</button>
+              <button class="btn bg-purple px-3 text-blod Button_ajoute" onClick={AddPaiementClick}>Ajouter</button>
+              {showAddModal &&
+                <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
+                  <form>
+                    <p className='text-center'>
+                      Add New Paiement
+                    </p>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">namberDappartement</label>
+                      <input type="" name='namberDappartement' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter namberDappartement" />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">amount</label>
+                      <input type="text" name='amount' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter amount" />
+                    </div>
+                  
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">date</label>
+                      <input type="text" name='date' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter date" />
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">cin</label>
+                      <input type="number" name='cin' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter cin" />
+                    </div>
+                    <div className='w-100 d-flex justify-content-between'>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={AddPaiement}>Add</button>
+                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={AddPaiementClick}>Cancel</button>
+                    </div>
+                    <p className='text-center text-danger'>
+                      {error}
+                    </p>
+                  </form>
+                </div>
+              }
             </div>
           </div>
           <div class="table-responsive card p-2">
             <table class="table table-striped Table_responsive">
               <thead>
                 <tr class="rounded tr_table">
-                  <th scope="col">Montant</th>
-                  <th scope="col">Date</th>
-                  <th scope="col">CIN</th>
-                  <th scope="col">  Numéro D'appartement</th>
-                  <th scope="col">delete</th>
-                  <th scope="col">update</th>
+                <th scope="col">namberDappartement</th>
+                  <th scope="col">amount</th>
+                  <th scope="col">date</th>
+                  <th scope="col">cin</th>
+                  <th scope="col">Delete</th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
+                {Paiement.map(data => (
+                  <tr>
+                    <td>{data.namberDappartement}</td>
+                    <td>{data.amount}</td>
+                    <td>{data.date}</td>
+                    <td>{data.cin}</td>
+                    <td>
+                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deletePaiement(data.id_Paiement)} >Delete</button>
+                    </td>
+                  </tr>
 
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> cdscc</td>
-                  <td scope="col"> cdcwdcwc</td>
-                </tr>
-
-                <tr class="rounded">
-                  <td scope="col"> 45  </td>
-                  <td scope="col"> Ahmed</td>
-                  <td scope="col"> fewwv</td>
-                  <td scope="col"> vwdvwrwv</td>
-                  <td scope="col"> button</td>
-                  <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute"  >Delete</button>
-                </tr>
-                
+                ))}
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="modal fade" id="send_to" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Ajouter</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <p class="d-flex m-0 mt-3 justify-content-center" id="warning"></p>
-              <div class="modal-body">
-                <form action="/articles/createArticle" method="post">
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">title</label>
-                    <input type="text" class="form-control" name="title" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">url</label>
-                    <input type="text" class="form-control" name="url" />
-                  </div>
-                  <div class="mb-3">
-                    <label for="amount" class="form-label">contenu</label>
-                    <input type="text" class="form-control" name="contenu" />
-                  </div>
-                  <select id="recipient_" class="form-control form-control-lg mb-3" name="recipient">
-
-                    <option value="4">best categorie</option>
-                    <option value="4">awesome categorie</option>
-                    <option value="4">others categorie</option>
-
-                  </select>
-                  <button type="submit" class="btn btn-primary">Ajouter</button>
-                </form>
-              </div>
-            </div>
+            <p className='text-center'>
+              {Paiement == "" ? 'No Data.' : ''}
+            </p>
           </div>
         </div>
       </main>

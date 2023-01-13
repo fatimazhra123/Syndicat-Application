@@ -20,6 +20,7 @@ import {
 } from "../../../assets/icons";
 
 function Sidebar() {
+
   const menus = [
     {
       name: "Dashboard",
@@ -51,9 +52,7 @@ function Sidebar() {
   const [open, setOpen] = useState(true);
   return (
     <div
-      className={`bg-gray-800 h-screen ${
-        open ? "w-56" : "w-16"
-      } duration-500 text-gray-100 px-3`}
+      className={`bg-purple-800 h-screen ${ open ? "w-56" : "w-16"} duration-500 text-gray-100 px-3`}
     >
       <div className="pt-1 flex flex-col gap-4 relative">
         <div className="flex justify-start swap swap-rotate">

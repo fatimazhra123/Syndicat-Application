@@ -1,4 +1,5 @@
 import React from "react";
+// import Logout from '../shared/Navbar'
 import {
   HiMenuAlt2,
   FaUserCircle,
@@ -8,12 +9,12 @@ import {
 
 function Navbar() {
   return (
-    <div className="navbar bg-gray-800 text-white">
+    <div className="navbar bg-purple-800 text-white">
       <div className="navbar-start">
         
       </div>
-      <div className="navbar-end flex">
-        <div className="form-control">
+      <div className="navbar-end flex bg-purple">
+  
           <div className="input-group">
             <input
               type="text"
@@ -24,7 +25,7 @@ function Navbar() {
               <BiSearch size={24} />
             </button>
           </div>
-        </div>
+       
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="rounded-full">
@@ -33,7 +34,7 @@ function Navbar() {
           </label>
           <ul
             tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52 text-black"
+            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-purple-100 rounded-box w-52 text-black"
           >
             <li>
               <p className="justify-between">
@@ -44,7 +45,7 @@ function Navbar() {
               <p>Settings</p>
             </li>
             <li>
-              <p>Logout</p>
+              {/* <p><Logout /></p> */}
             </li>
           </ul>
         </div>

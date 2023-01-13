@@ -108,13 +108,17 @@ try {
 
 exports. updateClient= async (req, res) => {
   const {NumberPhone,name,cin}= req.body;
-  const _id = req.params.id;
+  const id = req.params.id;
   if (!NumberPhone || !name || !cin) {
-     res.status(400).json({ message: "please fill all fields !" });
+     res.status(400).json({ message: "please add all fields !" });
   }
   // check for number if already exist
   const CheckclientUpdate = await client
-      .findOneAndUpdate({ _id,NumberPhone,name,cin});
+      .findByIdAndUpdate({_id : id},
+        {NumberPhone: NumberPhone,
+          name: name,
+          cin: cin
+        });
   if (CheckclientUpdate) {
      res.status(200).json({ message: "client Updated Successfully !" });
   } else {
@@ -122,3 +126,15 @@ exports. updateClient= async (req, res) => {
   }
 };
 
+
+
+exports. GetSingleclient = async (req, res) => {
+  const clients = await client.findById(req.params.id)
+  if (clients) {
+      res.status(200)
+          .json(clients)
+  } else {
+      res.status(400)
+          .json({ message: "Error  please try later  ! thank you" })
+  }
+}

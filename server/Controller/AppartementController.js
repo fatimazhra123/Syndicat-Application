@@ -113,3 +113,16 @@ exports. updateAppartement= async (req, res) => {
   }
 };
 
+
+//http://localhost:8080/api/Appartement/appartement/
+exports. GetSingleAppartement = async (req, res) => {
+  const appartement = await Appartement.findById(req.params.id)
+  if (appartement) {
+      res.status(200)
+          .json(appartement)
+  } else {
+      res.status(400)
+          .json({ message: "Error  please try later  ! thank you" })
+  }
+}
+

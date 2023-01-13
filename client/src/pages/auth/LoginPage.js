@@ -1,66 +1,123 @@
-import React from "react";
-import { Link, useNavigate,useLocation  } from "react-router-dom";
-import BackgroundAuth from "../../assets/images/BackgoundAuth.jpg";
-import { Button, Input } from "../../components/auth/indexComponentsAuth";
-// import React, { useState } from 'react'
+import React, { useState } from 'react'
+import Input from '../auth/Input'
+import Submit from '../auth/Submit'
+import { Navigate } from 'react-router-dom'
 import axios from 'axios'
-import LogoSyndicat from "../../assets/LogoSyndicat.png";
-import { ToastContainer, toast } from "react-toastify";
+import Swal from 'sweetalert2'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
+import signiiiii from "../../assets/images/signiiiii.png";
+// import { showMessage } from './utiles/showMessage';
 
-function LoginPage() {
+
+
+
+
+
+
+
+
+
+const Login = () => {
+  const [formData, setFormData] = useState({ email: '', password: '' })
+  const { email, password } = formData
+  const [error, setError] = useState(false)
+  // const [noErr, setNoErr] = useState(true)
+  const [errorPassword, setErrorPassword] = useState(false)
+  const [result, setResult] = useState('')
+
+  const navigate = useNavigate()
+  const location = useLocation();
+  const from =  location.state?.from || '/';
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value
+    }))
+  }
+
+  const url = 'http://localhost:8080/api/auth/login'
+  const data = { email, password }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (formData.email.length == 0 || formData.password.length == 0) {
+      setError(true)
+    }
+
+    try {
+      const res = await axios.post(url, data, { withCredentials: true });
+      console.log(JSON.stringify(res?.data))
+      console.log(res);
+      const roles = res?.data?.role
+      const id_user = res?.data?.id
+
+      localStorage.setItem('id', id_user)
+      localStorage.setItem('role', roles)
+      localStorage.setItem('email', email)
+      navigate(from, { replace: true });
+
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: err.response.data,
+        showConfirmButton: false,
+        timer: 1500
+    })
+    }
+
+  }
   return (
-    <div
-      className="hero min-h-screen "
-      style={{ backgroundImage: `url(${BackgroundAuth})` }}
-    >
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <div className="my-5 mx-3 px-3">
-            <p className="text-2xl mb-6 font-bold">Connexion</p>
-            <form>
+    <>
+      <div className='hero min-h-screen bg-base-200 bg-gray-50 px-20 py-8  shadow-xl  rounded-2xl border-2  animate__animated animate__zoomIn    border-gray-200 flex flex-col place-items-center'  style={{ backgroundImage: `url(${signiiiii})` }}>
+
+<div className="card flex-shrink-0 w-full max-w-sm shadow-3xl bg-base-100">
+  <h2 className='text-center text-3xl font-bold text-dark'>Sign in</h2>
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <div className="space-y-2">
               <div>
-                <label className="label text-xs font-medium">
-                  Adresse email - Format: exemple@mail.com
-                </label>
-                <Input type="email" name="email" id="email" placeholder="" />
-              </div>
-              <div>
-                <label className="label text-xs font-medium">
-                  Mot de passe
-                </label>
-                <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  placeholder=""
+                < Input
+                  title='Email'
+                  type='email'
+                  name='email'
+                  placeholder='youremail.@gmail.com'
+                  onChange={onChange}
+                  value={email}
+
                 />
               </div>
+              {error && formData.email.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Email can not be empty</p> : ''}
+
               <div>
-                <Link
-                  to={"/forgetpassword"}
-                  className="text-blue-500 text-xs focus:outline-none text-color-primary font-medium hover:text-color-secondary focus:underline hover:underline"
-                >
-                  Mot de passe oublié ?
-                </Link>
+                <div>
+                  < Input
+                    title='Password'
+                    type='password'
+                    name='password'
+                    placeholder='*******'
+                    onChange={onChange}
+                    value={password}
+                  />
+                </div>
+                {error && formData.password.length <= 0 ? <p style={{ 'color': 'red', fontSize: '12px' }}> Password can not be empty</p> : ''}
               </div>
-              <div className="mt-2 font-main">
-                <Button type="submit" text="Se connecter" textColor={false} />
-              </div>
-            </form>
-          </div>
+            </div>
+          
+            <Submit />
+          </form>
+          
+        
+            
+
+          
         </div>
-        <div className="text-center lg:text-left">
-          {/* <img src={LogoSyndicat} size="10" alt="" /> */}
-          <h1 className="text-5xl text-white font-bold">Syndicat</h1>
-          <p className="py-6 text-white">
-            Application de syndicat pour gérer les paiement pour chaque
-            appartement
-          </p>
-        </div>
+        {/* { noErr && <Navigate to='/dashboard' /> } */}
       </div>
-      <ToastContainer />
-    </div>
-  );
+    </>
+  )
 }
 
-export default LoginPage;
+export default Login

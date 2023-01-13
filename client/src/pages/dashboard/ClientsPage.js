@@ -1,13 +1,15 @@
 import React from 'react'
 import{ useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
+
 
 const Client = () => {
 
   const [showAddModal, setshowAddModal] = useState(false);
-  const [showUpdateModal, setshowUpdateModal] = useState(false);
-  const [formData, setFormData] = useState({ NumberPhone: '', name: '', cin: '',id_client:''})
-  const { NumberPhone, name, cin ,id_client} = formData
+  // const [showUpdateModal, setshowUpdateModal] = useState(false);
+  const [formData, setFormData] = useState({ NumberPhone: '', name: '', cin: ''})
+  const { NumberPhone, name, cin} = formData
 
   let [error, setError] = useState(true)
 
@@ -42,14 +44,15 @@ const Client = () => {
     setshowAddModal(!showAddModal);
   }
 
-  const UpdateClientClick = () => (
-    setshowUpdateModal(!showUpdateModal)
-  )
+  // const UpdateClientClick = () => (
+  //   setshowUpdateModal(!showUpdateModal)
+  // )
 
   const url = 'http://localhost:8080/api/client/createclient/'
   const data = { cin,NumberPhone,name}
 
   const AddClient = async (e) => {
+    // e.preventDefault();
   
 
     try {
@@ -66,29 +69,29 @@ const Client = () => {
     }
   }
 
-  const SetClientData = async (NumberPhone, name, cin,id_client) => {
-    formData.cin = cin
-    formData.NumberPhone = NumberPhone
-    formData.name = name
-    formData.id_client = id_client
-    UpdateClientClick()
-  }
+  // const SetClientData = async (NumberPhone, name, cin,id_client) => {
+  //   formData.cin = cin
+  //   formData.NumberPhone = NumberPhone
+  //   formData.name = name
+  //   formData.id_client = id_client
+  //   UpdateClientClick()
+  // }
 
-  const updateClient = async (id) => {
+  // const updateClient = async (id_client) => {
 
-    const url = 'http://localhost:8080/api/client/updateclient/' + id
+  //   const url = 'http://localhost:8080/api/client/updateclient' + id_client
 
-    try {
-      const res = await axios.put(url, formData, { withCredentials: true });
-      GetClient().then(response => {
-        SetClient(response.data)
-      })
-    } catch (err) {
-      console.log(err.response.data);
-      error = err.response.data
-      setError(err.response.data)
-    }
-  }
+  //   try {
+  //     const res = await axios.put(url, formData, { withCredentials: true });
+  //     GetClient().then(response => {
+  //       SetClient(response.data)
+  //     })
+  //   } catch (err) {
+  //     console.log(err.response.data);
+  //     error = err.response.data
+  //     setError(err.response.data)
+  //   }
+  // }
 
   const deleteClient = async (id) => {
     const url = 'http://localhost:8080/api/client/deleteclient/' + id
@@ -105,11 +108,16 @@ const Client = () => {
   return (
     <>
    
-      <main class="main">
+   <main class="main">
         <div class="Container p-4 ">
+          <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
+            <p class="">Clients Page</p>
+          </div>
           <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mt-3 fw-bold">
+            </div>
             <div class="d-flex justify-content-end my-2 px-5 fw-bold">
-              <button class="btn bg-danger px-3 text-blod Button_ajoute" onClick={AddClientClick}>Ajouter</button>
+              <button class="btn bg-purple px-3 text-blod Button_ajoute" onClick={AddClientClick}>Ajouter</button>
               {showAddModal &&
                 <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
                   <form>
@@ -142,49 +150,15 @@ const Client = () => {
                   </form>
                 </div>
               }
-              {showUpdateModal &&
-                <div className='position-absolute fixed-top w-25 p-3 bg-white border border-dark mx-auto my-5 rounded-2'>
-                  <form>
-                    <p className='text-center'>
-                      Update Produit
-                    </p>
-                   
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">cin</label>
-                      <input type="text" name='cin' value={formData.cin} onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describeClienty="emailHelp" placeholder="Enter cin" />
-                    </div>
-                    {/* <div class="form-group">
-                      <label for="exampleInputEmail1">NumberPhone</label>
-                      <input type="text" name='NumberPhone' value={formData.NumberPhone} class="form-control rounded-3" placeholder="Enter NumberPhone" />
-                    </div> */}
-                      <div class="form-group">
-                      <label for="exampleInputEmail1">NumberPhone</label>
-                      <input type="text" name='NumberPhone' value={formData.NumberPhone} onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describeClienty="emailHelp" placeholder="Enter NumberPhone" />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1"> name</label>
-                      <input type="text" name='name' value={formData.name} onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describeClienty="emailHelp" placeholder="Enter name" />
-                    </div>
-
-                    <div className='w-100 d-flex justify-content-between'>
-                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={updateClient(formData.id_client)}>Update</button>
-                      <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={UpdateClientClick}>Cancel</button>
-                    </div>
-                    <p className='text-center text-danger'>
-                      {error}
-                    </p>
-                  </form>
-                </div>
-              }
-
+          
             </div>
           </div>
           <div class="table-responsive card p-2">
             <table class="table table-striped Table_responsive">
               <thead>
                 <tr class="rounded tr_table">
+                <th scope="col">NumberPhone</th>
                 <th scope="col">cin</th>
-                  <th scope="col">NumberPhone</th>
                   <th scope="col">name</th>
                   <th scope="col">Update</th>
                   <th scope="col">Delete</th>
@@ -193,15 +167,15 @@ const Client = () => {
               <tbody>
                 {Client.map(data => (
                   <tr>
+                      <td>{data.NumberPhone}</td>
                     <td>{data.cin}</td>
-                    <td>{data.NumberPhone}</td>
                     <td>{data.name}</td>
                  
                     <td>
-                      <button class="btn bg-white border border-dark p-1 px-2 text-dark Button_ajoute" onClick={() => SetClientData(data.NumberPhone, data.cin, data.name, data.id_client)}>Update</button>
+                      <button class="btn bg-white border border-dark p-1 px-2 text-dark Button_ajoute"><Link to={`/dashboard/updateClient/${data._id}`}>Update</Link> </button>
                     </td>
                     <td>
-                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deleteClient(data.id_client)} >Delete</button>
+                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deleteClient(data._id)} >Delete</button>
                     </td>
                   </tr>
 

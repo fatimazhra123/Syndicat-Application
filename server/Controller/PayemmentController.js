@@ -6,7 +6,14 @@ const Client = require("../Models/clientModel");
 
 
 
-//get all paiments:
+
+// function get all paiments : 
+/**
+ * methode => get 
+ * @Route => api/payement/getAllPayement
+ * access => private
+ * 
+ */
 
 exports.getAllPayement = async (req, res) => {
   try {
@@ -26,8 +33,13 @@ catch (error)
 };
 
 
-
-//create paiements:
+// function create paiements : 
+/**
+ * methode => post 
+ * @Route => api/payement/createPayement
+ * access => private
+ * 
+ */
 
 exports.createPayement = async (req, res) => {
 
@@ -46,8 +58,8 @@ exports.createPayement = async (req, res) => {
     } 
     
   
-    const idClient = SClient._id;
-    const idAppartement = SAppartement._id;
+    const idClient = SClient.id;
+    const idAppartement = SAppartement.id;
   
     const paiment = await Paiment.create({date,amount,namberDappartement: idAppartement,cin: idClient });
     if(paiment){
@@ -61,7 +73,14 @@ exports.createPayement = async (req, res) => {
 
 }
 
-// delete paiments:
+
+// function delete paiments: : 
+/**
+ * methode => delete 
+ * @Route => /api/payement/deletePayement/:id
+ * access => private
+ * 
+ */
 
 
 try {
