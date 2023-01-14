@@ -41,7 +41,7 @@ const login = async (req, res) => {
                 Username: user.Username,
                 email: user.email,
                 message: 'user is logened',
-                token: token
+                token: token,
             })
     } else {
         res.status(400)

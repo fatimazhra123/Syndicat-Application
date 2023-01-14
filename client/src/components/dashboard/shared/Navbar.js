@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 // import Logout from '../shared/Navbar'
 import {
   HiMenuAlt2,
@@ -6,8 +6,12 @@ import {
   HiMenuAlt3,
   BiSearch,
 } from "../../../assets/icons";
+import { UserContext } from "../../../userContext/UserContext";
+
 
 function Navbar() {
+  const {auth} = useContext(UserContext)
+  console.log(auth);
   return (
     <div className="navbar bg-purple-800 text-white">
       <div className="navbar-start">
@@ -25,33 +29,11 @@ function Navbar() {
               <BiSearch size={24} />
             </button>
           </div>
-       
-        <div className="dropdown dropdown-end">
-          <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="rounded-full">
-              <FaUserCircle size={24} className="cursor-pointer" />
-            </div>
-          </label>
-          <ul
-            tabIndex={0}
-            className="mt-3 p-2 shadow menu menu-compact dropdown-content bg-purple-100 rounded-box w-52 text-black"
-          >
-            <li>
-              <p className="justify-between">
-                Profile<span className="badge">Edit</span>
-              </p>
-            </li>
-            <li>
-              <p>Settings</p>
-            </li>
-            <li>
-              {/* <p><Logout /></p> */}
-            </li>
-          </ul>
-        </div>
+       <h2>{auth.Username ? auth.Username : 'Admin'} </h2>
+      <button className="mx-4 btn btn-muted">Logout</button>
       </div>
     </div>
   );
 }
 
-export default Navbar;
+export default Navbar

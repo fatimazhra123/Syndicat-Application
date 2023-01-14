@@ -1,32 +1,22 @@
-// import React from 'react'
-// import { useLocation, Outlet, Navigate } from 'react-router-dom'
-// import Unauthorized from '../pages/auth/Unauthorized'
-
-// const RequireAuth = ({ Roles }) => {
+import React from 'react'
+import { Outlet, Navigate } from 'react-router-dom'
 
 
+const RequireAuth = () => {
     
-//     const location = useLocation()
-//     const role = localStorage.getItem('role')
-//     const email = localStorage.getItem('email')
-//     console.log(email);
-//     console.log(role);
+    const token = localStorage.getItem('token')
+    const email = localStorage.getItem('email')
+    console.log(email);
+    console.log(token);
 
 
-
-//     if (!(role && email)) {
-//         return <Navigate to="/dashboard" state={{ from: location }} replace />
-//     }
-
-
-//     if (Roles.indexOf(role) < 0) {
-//         return <Unauthorized />;
-//     }
+    if (!(token && email)) {
+        return <Navigate to="/" replace/>
+    }
    
+    
+    return <Outlet />;
 
-//     return <Outlet />;
+}
 
-
-// }
-
-// export default RequireAuth
+export default RequireAuth

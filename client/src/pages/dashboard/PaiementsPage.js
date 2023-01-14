@@ -5,8 +5,8 @@ import axios from 'axios'
 function PaiementsPage() {
   const [showAddModal, setshowAddModal] = useState(false);
   const [showUpdateModal, setshowUpdateModal] = useState(false);
-  const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: '' ,id_Paiement:''})
-  const { amount, date, namberDappartement ,cin,id_Paiement} = formData
+  const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: ''})
+  const { amount, date, namberDappartement ,cin} = formData
 
   let [error, setError] = useState(true)
 
@@ -20,6 +20,7 @@ function PaiementsPage() {
 
   function test_(){
     GetPaiement().then(response => {
+      console.log(response);
       SetPaiement(response.data)
     })
   }
@@ -62,16 +63,6 @@ function PaiementsPage() {
     }
   }
 
-  const SetPaiementData = async (amount, date, namberDappartement,cin,id_Paiement) => {
-    formData.namberDappartement = namberDappartement
-    formData.amount = amount
-    formData.date = date
-    formData.cin=cin
-    formData.id_Paiement = id_Paiement
-  
-  }
-
- 
 
   const deletePaiement = async (id) => {
     const url = 'http://localhost:8080/api/payement/deletePayement/' + id
@@ -107,6 +98,10 @@ function PaiementsPage() {
                       <label for="exampleInputEmail1">namberDappartement</label>
                       <input type="" name='namberDappartement' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter namberDappartement" />
                     </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">cin</label>
+                      <input type="text" name='cin' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter cin" />
+                    </div>
 
                     <div class="form-group">
                       <label for="exampleInputEmail1">amount</label>
@@ -115,11 +110,7 @@ function PaiementsPage() {
                   
                     <div class="form-group">
                       <label for="exampleInputEmail1">date</label>
-                      <input type="text" name='date' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter date" />
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">cin</label>
-                      <input type="number" name='cin' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter cin" />
+                      <input type="date" name='date' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter date" />
                     </div>
                     <div className='w-100 d-flex justify-content-between'>
                       <button class="btn bg-dark px-3 text-white mt-2 Button_ajoute" onClick={AddPaiement}>Add</button>

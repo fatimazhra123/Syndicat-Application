@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import Swal from 'sweetalert2';
+
 
 function UpdateAppartement() {
 
@@ -13,7 +15,7 @@ function UpdateAppartement() {
 
     const navigate = useNavigate();
 
-    const url = `http://localhost:8080/api/Appartement/updateAppartement${id.id}`
+    const url = `http://localhost:8080/api/Appartement/updateAppartement/${id.id}`
     const datas= {residence, namberDappartement}
 
     const updateAppartement =(e) => {
@@ -23,6 +25,14 @@ function UpdateAppartement() {
         axios.put(url,datas)
         .then(res => {
             console.log(res);
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: res.data.message,
+                showConfirmButton: false,
+                timer : 1500
+            })
+            navigate('/dashboard/Appartement')
         })
         .catch(err => {
             console.log(err);

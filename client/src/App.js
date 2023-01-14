@@ -1,5 +1,5 @@
 import './styles/App.css';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 import {
   LoginPage,
 } from './pages/auth/indexAuth'
@@ -8,49 +8,41 @@ import {
   AppartementsPage,
   ClientsPage,
   PaiementsPage,
-  ReglagesPage, 
+  ReglagesPage,
 } from './pages/dashboard/indexDashboard'
 import Layout from './components/dashboard/shared/Layout';
+import UpdateAppartement from './pages/updatte/updatteAppartement'
+import UpdateClient from './pages/updatte/updateClient'
+import RequireAuth from './utils/RequireAuth';
+import { UserProvider } from './userContext/UserContext';
+
+
 
 function App() {
   return (
-    <div>
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
-        <Route path="dashboard/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="appartement" element={<AppartementsPage />} />
-          <Route path="client" element={<ClientsPage />} />
-          <Route path="paiement" element={<PaiementsPage />} />
-          <Route path="reglage" element={<ReglagesPage />} />
-        
-        </Route>
-      </Routes>
+    <>
+   <UserProvider> 
+      <Router>
 
-
-{/* 
-
-      <Routes>
-        <Route path='/' element={<LoginPage />} />
+        <Routes>
+          <Route path='/' element={<LoginPage />} />
 
         // Syndicat url = admin Dash Component
-        <Route element={<RequireAuth Roles={["Syndicat"]} />}>
-        <Route path="dashboard/" element={<Layout />}>
-          <Route index element={<HomePage />} />
-          <Route path="appartement" element={<AppartementsPage />} />
-          <Route path="client" element={<ClientsPage />} />
-          <Route path="paiement" element={<PaiementsPage />} />
-          <Route path="reglage" element={<ReglagesPage />} />
-          <Route path="updateAppartement/:id" element={<UpdateAppartement />} />
-          <Route path="updateClient/:id" element={<UpdateClient />} />
-        </Route>
-        </Route>
-
-        
-
-  
-      </Routes> */}
-    </div>
+          <Route element={<RequireAuth />}>
+            <Route path="dashboard/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="appartement" element={<AppartementsPage />} />
+              <Route path="client" element={<ClientsPage />} />
+              <Route path="paiement" element={<PaiementsPage />} />
+              <Route path="reglage" element={<ReglagesPage />} />
+              <Route path="updateAppartement/:id" element={<UpdateAppartement />} />
+              <Route path="updateClient/:id" element={<UpdateClient />} />
+            </Route>
+          </Route>
+        </Routes>
+      </Router>
+   </UserProvider> 
+    </>
   );
 }
 

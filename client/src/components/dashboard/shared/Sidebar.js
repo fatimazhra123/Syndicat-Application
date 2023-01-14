@@ -77,7 +77,7 @@ function Sidebar() {
             key={i}
             className={`${
               menu?.margin && "mt-5"
-            } group flex items-center text-sm gap-3 font-medium p-2 hover:bg-color-primary rounded-md`}
+            } group flex items-center text-sm gap-3 font-medium p-2 hover:bg-color-purple rounded-md`}
           >
             <div>{React.createElement(menu?.icon, { size: "24" })}</div>
             <h2

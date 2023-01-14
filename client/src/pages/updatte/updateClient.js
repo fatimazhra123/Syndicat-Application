@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 function UpdateClient() {
 
@@ -21,12 +22,22 @@ function UpdateClient() {
     const datas= {name, cin, numberPhone}
 
     const updateClient =(e) => {
-        console.log(url);
         e.preventDefault()
+
+        // if (name.length == 0  email.length == 0  password.length == 0 || password2.length == 0) {
+        //     setError(true)
+        //   }
 
         axios.put(url,datas)
         .then(res => {
-            console.log(res);
+            console.log(res.data.message);
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: res.data.message,
+                showConfirmButton: false
+            })
+            navigate('/dashboard/client')
         })
         .catch(err => {
             console.log(err);

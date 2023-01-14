@@ -100,9 +100,9 @@ try {
 exports. updateAppartement= async (req, res) => {
   const {residence,namberDappartement} = req.body;
   const _id = req.params.id;
-  if (!residence || !namberDappartement) {
-     res.status(400).json({ message: "please fill all fields !" });
-  }
+  // if (!residence || !namberDappartement) {
+  //    res.status(400).json({ message: "please fill all fields !" });
+  // }
   // check for number if already exist
   const CheckAppartementUpdate = await Appartement
       .findOneAndUpdate({ _id,residence,namberDappartement});

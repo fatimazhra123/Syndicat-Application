@@ -45,11 +45,12 @@ exports.createPayement = async (req, res) => {
 
     const {date, amount , namberDappartement ,cin } = req.body;
 
-    if(!date || !amount || !namberDappartement || !cin ){
-        res.status(400).json({message: "Add all  field"})
-    }
+    // if(!date || !amount || !namberDappartement || !cin ){
+    //     res.status(400).json({message: "Add all  field"})
+    // }
 
     const SAppartement = await Appartement.findOne({namberDappartement: namberDappartement});
+    console.log('apartment',SAppartement);
     const SClient = await Client.findOne({cin : cin})
     if(!SAppartement || !SClient){
         res.status(400).json({
@@ -58,8 +59,8 @@ exports.createPayement = async (req, res) => {
     } 
     
   
-    const idClient = SClient.id;
-    const idAppartement = SAppartement.id;
+    const idClient = SClient._id;
+    const idAppartement = SAppartement._id;
   
     const paiment = await Paiment.create({date,amount,namberDappartement: idAppartement,cin: idClient });
     if(paiment){

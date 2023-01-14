@@ -65,12 +65,6 @@ const Appartement = () => {
     }
   }
 
-  const SetAppartementData = async (residence, namberDappartement, _id) => {
-    formData.residence = residence
-    formData.namberDappartement = namberDappartement
-    formData._id= _id
-    UpdateAppartementClick()
-  }
 
   
   

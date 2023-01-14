@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import Input from '../auth/Input'
 import Submit from '../auth/Submit'
 import { Navigate } from 'react-router-dom'
@@ -6,6 +6,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 import signiiiii from "../../assets/images/signiiiii.png";
+import { UserContext } from '../../userContext/UserContext'
 // import { showMessage } from './utiles/showMessage';
 
 
@@ -17,7 +18,10 @@ import signiiiii from "../../assets/images/signiiiii.png";
 
 
 
+
 const Login = () => {
+  const {setAuth} = useContext(UserContext)
+  
   const [formData, setFormData] = useState({ email: '', password: '' })
   const { email, password } = formData
   const [error, setError] = useState(false)
@@ -48,15 +52,13 @@ const Login = () => {
 
     try {
       const res = await axios.post(url, data, { withCredentials: true });
-      console.log(JSON.stringify(res?.data))
-      console.log(res);
-      const roles = res?.data?.role
-      const id_user = res?.data?.id
-
-      localStorage.setItem('id', id_user)
-      localStorage.setItem('role', roles)
+      console.log(res.data);
+      setAuth(res.data)
+      const token = res.data.token
       localStorage.setItem('email', email)
-      navigate(from, { replace: true });
+      localStorage.setItem('token' , token)
+      navigate('/dashboard')
+  
 
     } catch (err) {
       console.log(err);
@@ -67,6 +69,7 @@ const Login = () => {
         showConfirmButton: false,
         timer: 1500
     })
+
     }
 
   }

@@ -107,11 +107,9 @@ try {
 //update client:
 
 exports. updateClient= async (req, res) => {
-  const {NumberPhone,name,cin}= req.body;
   const id = req.params.id;
-  if (!NumberPhone || !name || !cin) {
-     res.status(400).json({ message: "please add all fields !" });
-  }
+  const {NumberPhone,name,cin}= req.body;
+
   // check for number if already exist
   const CheckclientUpdate = await client
       .findByIdAndUpdate({_id : id},
