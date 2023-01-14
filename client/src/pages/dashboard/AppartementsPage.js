@@ -137,16 +137,7 @@ const Appartement = () => {
                     <td>{data.residence}</td>
                     <td>{data.namberDappartement}</td>
                     <td>
-                    <Link to={`/dashboard/UpdateAppartement/${data._id}`}>
-                                <td className="whitespace-nowrap px-4 py-2 text-gray-700 dark:text-gray-200">
-                                    <button  className="group relative inline-block text-sm font-medium text-[#68B984] focus:outline-none focus:ring active:text-indigo-500">
-                                        <span className="absolute inset-0 translate-x-0.5 translate-y-0.5 bg-[#68B984] transition-transform group-hover:translate-y-0 group-hover:translate-x-0" />
-                                        <span className="relative block border border-current bg-white px-8 py-3">
-                                            Update
-                                        </span>
-                                    </button>
-                                </td>
-                            </Link>
+                      <button class="btn bg-white border border-dark p-1 px-2 text-dark Button_ajoute"><Link to={`/dashboard/UpdateAppartement/${data._id}`}>Update</Link> </button> 
                     </td>
                     <td>
                       <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => DeleteAppartement(data._id)} >Delete</button>

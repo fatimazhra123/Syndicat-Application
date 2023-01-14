@@ -14,10 +14,11 @@ const Client = require("../Models/clientModel");
  * access => private
  * 
  */
+// const paiments = await Paiment.find().populate('cin').populate('namberDappartement')
 
 exports.getAllPayement = async (req, res) => {
   try {
-  const paiments = await Paiment.find({})
+    const paiments = await Paiment.find().populate('cin').populate('namberDappartement')
 
   console.log(paiments);
 

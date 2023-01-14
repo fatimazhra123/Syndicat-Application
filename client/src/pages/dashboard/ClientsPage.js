@@ -69,30 +69,6 @@ const Client = () => {
     }
   }
 
-  // const SetClientData = async (NumberPhone, name, cin,id_client) => {
-  //   formData.cin = cin
-  //   formData.NumberPhone = NumberPhone
-  //   formData.name = name
-  //   formData.id_client = id_client
-  //   UpdateClientClick()
-  // }
-
-  // const updateClient = async (id_client) => {
-
-  //   const url = 'http://localhost:8080/api/client/updateclient' + id_client
-
-  //   try {
-  //     const res = await axios.put(url, formData, { withCredentials: true });
-  //     GetClient().then(response => {
-  //       SetClient(response.data)
-  //     })
-  //   } catch (err) {
-  //     console.log(err.response.data);
-  //     error = err.response.data
-  //     setError(err.response.data)
-  //   }
-  // }
-
   const deleteClient = async (id) => {
     const url = 'http://localhost:8080/api/client/deleteclient/' + id
     try {

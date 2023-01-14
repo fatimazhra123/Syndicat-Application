@@ -1,6 +1,8 @@
 import React from 'react'
 import{ useState, useEffect } from 'react'
 import axios from 'axios'
+// import jspdf from 'jspdf'
+
 
 function PaiementsPage() {
   const [showAddModal, setshowAddModal] = useState(false);
@@ -19,7 +21,8 @@ function PaiementsPage() {
   }
 
   function test_(){
-    GetPaiement().then(response => {
+    GetPaiement()
+    .then(response => {
       console.log(response);
       SetPaiement(response.data)
     })
@@ -41,7 +44,6 @@ function PaiementsPage() {
     setFormData({})
     setshowAddModal(!showAddModal);
   }
-
 
   const url = 'http://localhost:8080/api/payement/createPayement'
   const data = { namberDappartement,amount,date,cin}
@@ -75,6 +77,14 @@ function PaiementsPage() {
       console.log(err.response.data);
     }
   }
+//   const generatePDF = () => {
+//     const doc = new jspdf('p', 'pt', 'a4')
+//     doc.html(document.querySelector('#Paiement '), {
+//       callback: function (pdf) {
+//         pdf.save('Paiement.pdf')
+//       }
+//     })
+// }
 
   return (
     <>
@@ -138,12 +148,16 @@ function PaiementsPage() {
               <tbody>
                 {Paiement.map(data => (
                   <tr>
-                    <td>{data.namberDappartement}</td>
+                    <td>{data.namberDappartement.namberDappartement}</td>
                     <td>{data.amount}</td>
                     <td>{data.date}</td>
-                    <td>{data.cin}</td>
+                    <td>{data.cin.cin}</td>
                     <td>
                       <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deletePaiement(data.id_Paiement)} >Delete</button>
+                    </td>
+                    <td>
+                
+                      {/* <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute"  onclick={generatePDF}  >Facture</button> */}
                     </td>
                   </tr>
 

@@ -75,8 +75,8 @@ function UpdateAppartement() {
                             </div>
                            
                             <button type="submit" className="block w-full rounded-lg  px-5 py-3 text-sm font-medium text-white"  style={{ background:"purple"}}>
-                                Update
-                            </button>
+                            Update
+                        </button>
                         </form>
                     </div>
                 </div>
