@@ -6,13 +6,30 @@ import axios from 'axios'
 
 function PaiementsPage() {
   const [showAddModal, setshowAddModal] = useState(false);
-  const [showUpdateModal, setshowUpdateModal] = useState(false);
+  const [dataClient, setDataClient]=useState([])
   const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: ''})
   const { amount, date, namberDappartement ,cin} = formData
 
   let [error, setError] = useState(true)
 
   const [Paiement, SetPaiement] = useState([])
+
+  const getCinClient =()=>{
+    const URL = "http://localhost:8080/api/client/getAllclient"
+    axios.get(URL)
+    .then(res=>{
+     console.log(res.data);
+     setDataClient(res.data)
+    }).catch(err=>{
+      console.log(err);
+    })
+  }
+  
+  useEffect(() => {
+   getCinClient()
+  
+  }, [])
+  
 
   const URL = "http://localhost:8080/api/payement/getAllPayement"
   function GetPaiement() {
@@ -77,15 +94,6 @@ function PaiementsPage() {
       console.log(err.response.data);
     }
   }
-//   const generatePDF = () => {
-//     const doc = new jspdf('p', 'pt', 'a4')
-//     doc.html(document.querySelector('#Paiement '), {
-//       callback: function (pdf) {
-//         pdf.save('Paiement.pdf')
-//       }
-//     })
-// }
-
   return (
     <>
            <main class="main">
@@ -110,6 +118,14 @@ function PaiementsPage() {
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">cin</label>
+
+                      <select className="form-select"  aria-label="Default select example"  onChange={onChange}>
+                        
+                      <option selected >Open this select Cin</option>
+
+                          <option> </option>
+
+                    </select>
                       <input type="text" name='cin' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter cin" />
                     </div>
 
@@ -156,8 +172,6 @@ function PaiementsPage() {
                       <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deletePaiement(data.id_Paiement)} >Delete</button>
                     </td>
                     <td>
-                
-                      {/* <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute"  onclick={generatePDF}  >Facture</button> */}
                     </td>
                   </tr>
 

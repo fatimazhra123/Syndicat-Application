@@ -6,7 +6,6 @@ import axios from 'axios'
 const Appartement = () => {
 
   const [showAddModal, setshowAddModal] = useState(false);
-  const [showUpdateModal, setshowUpdateModal] = useState(false);
   const [formData, setFormData] = useState({ residence: '', namberDappartement: ''})
   const { residence, namberDappartement, _id} = formData
 
@@ -42,9 +41,7 @@ const Appartement = () => {
     setshowAddModal(!showAddModal);
   }
 
-  const UpdateAppartementClick = () => (
-    setshowUpdateModal(!showUpdateModal)
-  )
+
 
   const url = 'http://localhost:8080/api/Appartement/createAppartement/'
   const data = { residence, namberDappartement}
@@ -87,7 +84,7 @@ const Appartement = () => {
       <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
-            <p class="">Appartement</p>
+            <p class="">Appartement page</p>
           </div>
           <div class="d-flex justify-content-between">
             <div class="d-flex justify-content-between mt-3 fw-bold">

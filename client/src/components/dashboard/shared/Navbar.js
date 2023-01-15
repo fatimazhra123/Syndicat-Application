@@ -12,6 +12,16 @@ import { UserContext } from "../../../userContext/UserContext";
 function Navbar() {
   const {auth} = useContext(UserContext)
   console.log(auth);
+
+
+  
+
+function logout() {
+
+  localStorage.clear();
+  window.location.replace('http://localhost:3000/')
+
+}
   return (
     <div className="navbar bg-purple-800 text-white">
       <div className="navbar-start">
@@ -30,7 +40,7 @@ function Navbar() {
             </button>
           </div>
        <h2>{auth.Username ? auth.Username : 'Admin'} </h2>
-      <button className="mx-4 btn btn-muted">Logout</button>
+      <button className="mx-4 btn btn-muted" onClick={logout} >Logout</button>
       </div>
     </div>
   );
