@@ -1,52 +1,32 @@
 import React from 'react'
-import{ useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
-// import jspdf from 'jspdf'
+import jspdf from 'jspdf'
+import { Link } from 'react-router-dom'
+
 
 
 function PaiementsPage() {
   const [showAddModal, setshowAddModal] = useState(false);
-  const [dataClient, setDataClient]=useState([])
-  const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: ''})
-  const { amount, date, namberDappartement ,cin} = formData
+  const [formData, setFormData] = useState({ amount: '', date: '', namberDappartement: '', cin: '' })
+  const { amount, date, namberDappartement, cin } = formData
 
   let [error, setError] = useState(true)
 
   const [Paiement, SetPaiement] = useState([])
 
-  const getCinClient =()=>{
-    const URL = "http://localhost:8080/api/client/getAllclient"
-    axios.get(URL)
-    .then(res=>{
-     console.log(res.data);
-     setDataClient(res.data)
-    }).catch(err=>{
-      console.log(err);
-    })
-  }
-  
-  useEffect(() => {
-   getCinClient()
-  
-  }, [])
-  
 
+ 
   const URL = "http://localhost:8080/api/payement/getAllPayement"
   function GetPaiement() {
-    return axios.get(URL)
-    
+    axios.get(URL)
+      .then(response => {
+        console.log(response);
+        SetPaiement(response.data)
+      })
   }
-
-  function test_(){
-    GetPaiement()
-    .then(response => {
-      console.log(response);
-      SetPaiement(response.data)
-    })
-  }
-
-  useEffect(() => {
-    test_()
+useEffect(() => {
+  GetPaiement()
   }, [])
 
   const onChange = (e) => {
@@ -57,19 +37,18 @@ function PaiementsPage() {
   }
 
   const AddPaiementClick = () => {
-    setError(false)
     setFormData({})
     setshowAddModal(!showAddModal);
   }
 
   const url = 'http://localhost:8080/api/payement/createPayement'
-  const data = { namberDappartement,amount,date,cin}
+  const data = { namberDappartement, amount, date, cin }
 
   const AddPaiement = async (e) => {
     e.preventDefault();
 
     try {
-      const res= await axios.post(url, data, { withCredentials: true });
+      const res = await axios.post(url, data, { withCredentials: true });
       AddPaiementClick();
       GetPaiement().then(response => {
         // SetPaiement(response.data)
@@ -77,7 +56,7 @@ function PaiementsPage() {
       })
     } catch (err) {
       console.log(err);
-  
+
       setError(err)
     }
   }
@@ -96,7 +75,7 @@ function PaiementsPage() {
   }
   return (
     <>
-           <main class="main">
+      <main class="main">
         <div class="Container p-4 ">
           <div class="d-flex justify-content-between border-bottom fw-bold fs-4">
             <p class="">paiements pages</p>
@@ -118,14 +97,6 @@ function PaiementsPage() {
                     </div>
                     <div class="form-group">
                       <label for="exampleInputEmail1">cin</label>
-
-                      <select className="form-select"  aria-label="Default select example"  onChange={onChange}>
-                        
-                      <option selected >Open this select Cin</option>
-
-                          <option> </option>
-
-                    </select>
                       <input type="text" name='cin' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter cin" />
                     </div>
 
@@ -133,7 +104,7 @@ function PaiementsPage() {
                       <label for="exampleInputEmail1">amount</label>
                       <input type="text" name='amount' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter amount" />
                     </div>
-                  
+
                     <div class="form-group">
                       <label for="exampleInputEmail1">date</label>
                       <input type="date" name='date' onChange={onChange} class="form-control rounded-3" id="exampleInputEmail1" aria-describePaiementy="emailHelp" placeholder="Enter date" />
@@ -154,7 +125,7 @@ function PaiementsPage() {
             <table class="table table-striped Table_responsive">
               <thead>
                 <tr class="rounded tr_table">
-                <th scope="col">namberDappartement</th>
+                  <th scope="col">namberDappartement</th>
                   <th scope="col">amount</th>
                   <th scope="col">date</th>
                   <th scope="col">cin</th>
@@ -169,7 +140,10 @@ function PaiementsPage() {
                     <td>{data.date}</td>
                     <td>{data.cin.cin}</td>
                     <td>
-                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deletePaiement(data.id_Paiement)} >Delete</button>
+                      <button class="btn bg-dark  p-1 px-2 text-white Button_ajoute" onClick={() => deletePaiement(data._id)} >Delete</button>
+                    </td>
+                    <td>
+                          <button className="btn bg-dark  p-1 px-2 text-white Button_ajoute"><Link to={`/dashboard/PdfPaiment/${data._id}`}>Facture</Link></button>
                     </td>
                     <td>
                     </td>

@@ -15,6 +15,9 @@ import UpdateAppartement from './pages/updatte/updatteAppartement'
 import UpdateClient from './pages/updatte/updateClient'
 import RequireAuth from './utils/RequireAuth';
 import { UserProvider } from './userContext/UserContext';
+import PdfPaiment from './pages/dashboard/PdfPaiment';
+
+
 
 
 
@@ -37,6 +40,7 @@ function App() {
               <Route path="reglage" element={<ReglagesPage />} />
               <Route path="updateAppartement/:id" element={<UpdateAppartement />} />
               <Route path="updateClient/:id" element={<UpdateClient />} />
+              <Route path="PdfPaiment/:id" element={<PdfPaiment />} />
             </Route>
           </Route>
         </Routes>

@@ -7,7 +7,7 @@ const ApartementShema = mongoose.Schema({
 
   namberDappartement: { 
         type:String,
-        unique: true
+        // unique: true
       
       },
       residence:{

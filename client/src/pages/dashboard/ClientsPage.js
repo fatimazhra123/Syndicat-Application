@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 const Client = () => {
 
   const [showAddModal, setshowAddModal] = useState(false);
-  // const [showUpdateModal, setshowUpdateModal] = useState(false);
   const [formData, setFormData] = useState({ NumberPhone: '', name: '', cin: ''})
   const { NumberPhone, name, cin} = formData
 
@@ -72,12 +71,12 @@ const Client = () => {
   const deleteClient = async (id) => {
     const url = 'http://localhost:8080/api/client/deleteclient/' + id
     try {
-      const res = await axios.delete(url, data, { withCredentials: true });
+      const res = await axios.delete(url);
       GetClient().then(response => {
         SetClient(response.data)
       })
     } catch (err) {
-      console.log(err.response.data);
+      console.log(err);
     }
   }
 

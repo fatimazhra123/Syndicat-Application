@@ -87,17 +87,12 @@ exports.createPayement = async (req, res) => {
 
 try {
   exports.deletePayement = async (req, res) => {
-    const id_Pyement = await Paiment.findById(req.params.id_Pyement);
-    const data = await Paiment.deleteOne({
-      where: {
-        id_Pyement: id_Pyement,
-      },
-
-    });
+    const id = req.params.id
+   await Paiment.findByIdAndDelete({_id : id});
+  
     res.status(200).json({
       success: true,
       message: "Paiment deleted successfully",
-      data: data,
     });
   };
 
@@ -108,6 +103,18 @@ try {
 
 
 
+exports. GetSinglePayement = async (req, res) => {
+    const id = req.params.id
+        try{
+            
+             const data = await Paiment.findOne({_id:id}).populate('cin').populate('namberDappartement')
+            res.status(200).send(data)
+        } catch (error) {
+            res.status(400)
+            throw new Error(error)
+        }
 
+
+}
 
 

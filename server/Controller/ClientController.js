@@ -40,7 +40,7 @@ exports.createClient = async (req, res) => {
         throw new Error('please add all files ')  
     }
     // check for number client if already exist 
-    const clientExist = await client.findOne({ cin })
+    const clientExist = await client.findOne({ cin : cin })
     if (clientExist) {
         return res.status(400).send('i m sorry client has been already exist')
     }

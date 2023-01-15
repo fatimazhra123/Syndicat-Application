@@ -64,19 +64,30 @@ const Appartement = () => {
 
 
   
-  
+  const DeleteAppartement=(id)=>{
+const url="http://localhost:8080/api/Appartement/deleteAppartement/" +id
+axios.delete(url)
+.then(res=>{
+  console.log(res.data);
+  SetAppartement(res.data)
+}).catch(err=>{
+  console.log(err.res.data);
+})
 
-  const DeleteAppartement = async (id) => {
-    const url = 'http://localhost:8080/api/Appartement/deleteAppartement/' + id
-    try {
-      const res = await axios.delete(url, data, { withCredentials: true });
-      GetAppartements().then(response => {
-        SetAppartement(response.data)
-      })
-    } catch (err) {
-      console.log(err.response.data);
-    }
   }
+
+
+  // const DeleteAppartement = async (id) => {
+  //   const url = 'http://localhost:8080/api/Appartement/deleteAppartement/' + id
+  //   try {
+  //     const res = await axios.delete(url, data, { withCredentials: true });
+  //     GetAppartements().then(response => {
+  //       SetAppartement(response.data)
+  //     })
+  //   } catch (err) {
+  //     console.log(err.response.data);
+  //   }
+  // }
 
   return (
     <>
